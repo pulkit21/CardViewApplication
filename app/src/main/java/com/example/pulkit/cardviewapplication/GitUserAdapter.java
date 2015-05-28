@@ -1,6 +1,7 @@
 package com.example.pulkit.cardviewapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
+
+import javax.xml.transform.Transformer;
 
 public class GitUserAdapter extends RecyclerView.Adapter<GitUserAdapter.ViewHolder> {
 
@@ -30,10 +34,10 @@ public class GitUserAdapter extends RecyclerView.Adapter<GitUserAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         User user = users.get(position);
-
-        Picasso.with(mContext).load(user.avatar_url).into(viewHolder.userImage);
+        
+        Picasso.with(mContext).load(user.avatar_url).resize(mContext.getResources().getDisplayMetrics().heightPixels, mContext.getResources().getDisplayMetrics().widthPixels).into(viewHolder.userImage);
         viewHolder.userName.setText(user.login);
     }
 
@@ -50,6 +54,7 @@ public class GitUserAdapter extends RecyclerView.Adapter<GitUserAdapter.ViewHold
             super(itemView);
             userName = (TextView) itemView.findViewById(R.id.userName);
             userImage = (ImageView)itemView.findViewById(R.id.userImage);
+
         }
     }
 }
